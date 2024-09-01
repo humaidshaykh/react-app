@@ -30,15 +30,24 @@ function taskForm() {
     setDescription('');
   };
 
-  let renderTask = <h2 className='text-center'><b>No Task Available</b></h2>;
+  const deleteTodo = (index) =>{
+    let previousTask = [...todoTask];
+    previousTask.splice(index, 1);
+    settodoTask(previousTask);
+  }
+
+  let renderTask = <h2 className='w-1/3 text-center mx-auto'><b>No Task Available</b></h2>;
 
   if(todoTask.length > 0){
   renderTask = todoTask.map((task, index) => {
-    return <li>
+    return <li key={index}>
       <div>
         <h4><b>Title:</b> {task.title}</h4>
         <h6><b>Description:</b> {task.description}</h6>
       </div>
+      <button onClick={()=>{
+        deleteTodo(index)
+      }} className='bg-red-500 text-white mt-3 py-1 px-3 rounded'>Delete</button>
       <hr className='h-1 my-3 bg-black' />
     </li>
   })
@@ -56,8 +65,8 @@ function taskForm() {
 
         <hr />
 
-        <div className='p-8 bg-slate-200'>
-          <ul>
+        <div className='p-8 my-5 bg-slate-200'>
+          <ul className='w-2/3 p-3 mx-auto bg-slate-100'>
             {renderTask}
           </ul>
         </div>
